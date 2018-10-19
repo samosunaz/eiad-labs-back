@@ -1,6 +1,7 @@
 <?php
 
 $router->group(['prefix' => 'users'], function () use ($router) {
-    $router->get('', 'UsersController@all');
-    $router->get('/{user_id}', 'UsersController@findById');
+    $router->get('', 'UserController@all');
+    $router->post('', 'UserController@add');
+    $router->get('/{user_id}', 'UserController@findById');
 });
