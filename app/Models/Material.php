@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: samosunaz
  * Date: 20/09/18
- * Time: 19:14
+ * Time: 21:08
  */
 
 namespace App\Models;
@@ -11,12 +11,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class Material extends Model
 {
   protected $connection = 'mysql';
-  protected $table = 'role';
+
+  public $incrementing = false;
+
+  protected $table = 'material';
+
   protected $fillable = [
     'id',
-    'type'
+    'name',
+    'model',
+    'description',
+    'lab_id',
+    'brand'
   ];
 }

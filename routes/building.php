@@ -8,13 +8,13 @@
 
 $router->group(['prefix' => 'buildings'], function () use ($router) {
 
-    $router->group(['prefix' => ''], function () use ($router) {
-        $router->get('', 'BuildingController@all');
-        $router->post('', 'BuildingController@create');
-    });
+  $router->group(['prefix' => ''], function () use ($router) {
+    $router->get('', 'BuildingController@all');
+    $router->post('', 'BuildingController@create');
+  });
 
-    $router->group(['prefix' => '{buildingId}'], function () use ($router) {
-        $router->get('', 'BuildingController@getById');
-        $router->delete('', 'BuildingController@delete');
-    });
+  $router->group(['prefix' => '{building_id}'], function () use ($router) {
+    $router->get('', 'BuildingController@findById');
+    $router->delete('', 'BuildingController@delete');
+  });
 });
