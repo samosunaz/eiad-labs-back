@@ -36,11 +36,10 @@ class AuthenticationController extends Controller
     $email = $body['email'];
     $password = $body['password'];
 
-    $user = $this->repository->findBy('email', $email)->first();
+    $user = $this->repository->findBy('email', $email);
     if (!$user) {
       throw new UnauthorizedHttpException('');
     }
-
     if ($user->password != $password) {
       throw new UnauthorizedHttpException('');
     }
@@ -50,7 +49,7 @@ class AuthenticationController extends Controller
 
     $payload = [
       'token' => $token,
-      '$user' => $user
+      'user' => $user
     ];
 
     return new Response($payload, Response::HTTP_OK);
@@ -59,11 +58,12 @@ class AuthenticationController extends Controller
   public function authenticate()
   {
     $body = $this->request->all();
-    if (!$body->jwt) {
+
+    if (!$body['token']) {
       throw new UnauthorizedHttpException('');
     }
 
-    $jwt = $body->jwt;
+    $jwt = $body['token'];
 
     try {
       $decoded = JWT::decode($jwt, getenv('JWT_KEY'), [getenv('JWT_ALGO')]);
