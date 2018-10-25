@@ -16,9 +16,9 @@ class MakeLabTable extends Migration
       Schema::create('lab', function (Blueprint $table) {
       $table->increments('id');
       $table->string('name');
-      $table->int('active')->default(0);
-      $table->integer('floor_id');
-      $table->int('user_id')->default(1);
+      $table->integer('active')->default(0);
+      $table->integer('floor_id')->unsigned();
+      $table->integer('user_id')->default(1)->unsigned();
       $table->timestamps();
       $table->foreign('floor_id')->references('id')->on('floor')->onUpdate('cascade');
       $table->foreign('user_id')->references('id')->on('user');

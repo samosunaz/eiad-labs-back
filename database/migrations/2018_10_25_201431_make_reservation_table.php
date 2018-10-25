@@ -16,7 +16,7 @@ class MakeReservationTable extends Migration
       Schema::create('reservation', function (Blueprint $table) {
       $table->increments('id');
       $table->string('material_id');
-      $table->string('student_id');
+      $table->integer('student_id')->unsigned();
       $table->string('status');
       $table->timestamp('starts_at');
       $table->timestamp('ends_at');

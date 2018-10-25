@@ -13,12 +13,13 @@ class MakeLabClassTable extends Migration
      */
     public function up()
     {
-      Schema::create('material', function (Blueprint $table) {
+      Schema::create('lab_class', function (Blueprint $table) {
       $table->increments('id');
       $table->string('name');
-      $table->string('brand');
-      $table->string('description')->nullable();
-      $table->integer('lab_id');
+      $table->time('starts_at');
+      $table->time('ends_at')->nullable();
+      $table->string('days');
+      $table->integer('lab_id')->unsigned();
       $table->timestamps();
       $table->foreign('lab_id')->references('id')->on('lab');
       });

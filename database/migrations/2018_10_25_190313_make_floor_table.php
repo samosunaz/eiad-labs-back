@@ -18,7 +18,7 @@ class MakeFloorTable extends Migration
       $table->string('name');
       $table->integer('active')->default(0);
       $table->timestamps();
-      $table->integer('building_id');
+      $table->integer('building_id')->unsigned();
       $table->foreign('building_id')->references('id')->on('building');
       });
     }
