@@ -105,6 +105,8 @@ $app->router->group([
   require __DIR__ . '/../routes/labs.php';
   require __DIR__ . '/../routes/lab_classes.php';
   require __DIR__ . '/../routes/materials.php';
+  require __DIR__ . '/../routes/auth.php';
+
 });
 
 return $app;
