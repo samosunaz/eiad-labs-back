@@ -6,6 +6,7 @@
  * Time: 8:52 PM
  */
 
+/**@var $router \Laravel\Lumen\Routing\Router */
 $router->group(['prefix' => 'auth'], function () use ($router) {
   $router->post('/authenticate', 'AuthenticationController@authenticate');
   $router->post('/login', 'AuthenticationController@login');
