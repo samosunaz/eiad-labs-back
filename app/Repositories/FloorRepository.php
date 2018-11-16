@@ -1,10 +1,15 @@
 <?php
+
 namespace App\Repositories;
 
-class FloorRepository extends Repository
+use Prettus\Repository\Contracts\RepositoryInterface;
+
+/**
+ * Interface FloorRepository.
+ *
+ * @package namespace App\Repositories;
+ */
+interface FloorRepository extends RepositoryInterface
 {
-    public function model()
-    {
-        return 'App\Models\Floor';
-    }
+    //
 }

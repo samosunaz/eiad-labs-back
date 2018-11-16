@@ -1,18 +1,15 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: samosunaz
- * Date: 13/09/18
- * Time: 09:40
- */
 
 namespace App\Repositories;
 
+use Prettus\Repository\Contracts\RepositoryInterface;
 
-class LabRepository extends Repository
+/**
+ * Interface LabRepository.
+ *
+ * @package namespace App\Repositories;
+ */
+interface LabRepository extends RepositoryInterface
 {
-    public function model()
-    {
-        return 'App\Models\Lab';
-    }
+    //
 }

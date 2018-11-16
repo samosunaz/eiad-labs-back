@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Console\Commands\ProviderMakeCommand;
 use App\Console\Commands\RequestMakeCommand;
 use App\Http\Requests\Request as FormRequest;
 use Illuminate\Contracts\Validation\ValidatesWhenResolved;
@@ -36,7 +37,7 @@ class FormRequestServiceProvider extends ServiceProvider
       $request->setContainer($app)->setRedirector($app->make(Redirector::class));
     });
 
-    $this->commands([RequestMakeCommand::class]);
+    $this->commands([RequestMakeCommand::class, ProviderMakeCommand::class]);
   }
 
   /**
