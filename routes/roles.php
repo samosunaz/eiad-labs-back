@@ -1,17 +1,15 @@
 <?php
-
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It is a breeze. Simply tell Lumen the URIs it should respond to
-| and give it the Closure to call when that URI is requested.
-|
-*/
-
+/**
+ * @var \Laravel\Lumen\Routing\Router $router
+ */
 $router->group(['prefix' => 'roles'], function () use ($router) {
-    $router->get('', 'RolesController@all');
-    $router->get('/{role_id}', 'RolesController@findById');
+  $router->group(['prefix' => ''], function () use ($router) {
+    $router->get('', 'RolesController@index');
+    $router->post('', 'RolesController@store');
+  });
+  $router->group(['prefix' => '{role_id}'], function () use ($router) {
+    $router->delete('', 'RolesController@destroy');
+    $router->get('', 'RolesController@show');
+    $router->put('', 'RolesController@update');
+  });
 });

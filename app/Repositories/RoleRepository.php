@@ -1,25 +1,15 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: samosunaz
- * Date: 20/09/18
- * Time: 19:18
- */
 
 namespace App\Repositories;
 
+use Prettus\Repository\Contracts\RepositoryInterface;
 
-class RoleRepository extends Repository
+/**
+ * Interface RoleRepository.
+ *
+ * @package namespace App\Repositories;
+ */
+interface RoleRepository extends RepositoryInterface
 {
-
-    /**
-     * Specify Model class name
-     *
-     * @return mixed
-     */
-    function model()
-    {
-        // TODO: Implement model() method.
-        return 'App\Models\Role';
-    }
+    //
 }

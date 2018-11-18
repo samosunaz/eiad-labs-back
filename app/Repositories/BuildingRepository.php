@@ -1,18 +1,15 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: samosunaz
- * Date: 12/09/18
- * Time: 16:52
- */
 
 namespace App\Repositories;
 
+use Prettus\Repository\Contracts\RepositoryInterface;
 
-class BuildingRepository extends Repository
+/**
+ * Interface BuildingRepository.
+ *
+ * @package namespace App\Repositories;
+ */
+interface BuildingRepository extends RepositoryInterface
 {
-    public function model()
-    {
-        return 'App\Models\Building';
-    }
+    //
 }

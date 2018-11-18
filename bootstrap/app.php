@@ -64,9 +64,9 @@ $app->middleware([
   App\Http\Middleware\CorsMiddleware::class
 ]);
 
-// $app->routeMiddleware([
-//     'auth' => App\Http\Middleware\Authenticate::class,
-// ]);
+$app->routeMiddleware([
+  'jwt.auth' => App\Http\Middleware\JwtMiddleware::class,
+]);
 
 /*
 |--------------------------------------------------------------------------
@@ -79,9 +79,12 @@ $app->middleware([
 |
  */
 
-// $app->register(App\Providers\AppServiceProvider::class);
-// $app->register(App\Providers\AuthServiceProvider::class);
-// $app->register(App\Providers\EventServiceProvider::class);
+$app->register(App\Providers\AuthServiceProvider::class);
+$app->register(App\Providers\AppServiceProvider::class);
+$app->register(App\Providers\RouteRegistryServiceProvider::class);
+$app->register(App\Providers\FormRequestServiceProvider::class);
+$app->register(Prettus\Repository\Providers\LumenRepositoryServiceProvider::class);
+$app->register(App\Providers\RepositoryServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
@@ -97,7 +100,7 @@ $app->middleware([
 $app->router->group([
   'namespace' => 'App\Http\Controllers',
 ], function ($router) {
-  require __DIR__ . '/../routes/api.php';
+  /*require __DIR__ . '/../routes/api.php';
   require __DIR__ . '/../routes/floors.php';
   require __DIR__ . '/../routes/building.php';
   require __DIR__ . '/../routes/roles.php';
@@ -105,8 +108,7 @@ $app->router->group([
   require __DIR__ . '/../routes/labs.php';
   require __DIR__ . '/../routes/lab_classes.php';
   require __DIR__ . '/../routes/materials.php';
-  require __DIR__ . '/../routes/auth.php';
-
+  require __DIR__ . '/../routes/auth.php';*/
 });
 
 return $app;

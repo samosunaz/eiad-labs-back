@@ -1,20 +1,15 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: samosunaz
- * Date: 12/09/18
- * Time: 19:03
+ * @var \Laravel\Lumen\Routing\Router $router
  */
-
 $router->group(['prefix' => 'buildings'], function () use ($router) {
-
   $router->group(['prefix' => ''], function () use ($router) {
-    $router->get('', 'BuildingController@all');
-    $router->post('', 'BuildingController@create');
+    $router->get('', 'BuildingsController@index');
+    $router->post('', 'BuildingController@store');
   });
-
   $router->group(['prefix' => '{building_id}'], function () use ($router) {
-    $router->get('', 'BuildingController@findById');
-    $router->delete('', 'BuildingController@delete');
+    $router->delete('', 'BuildingController@destroy');
+    $router->get('', 'BuildingController@show');
+    $router->put('', 'BuildingController@update');
   });
 });
