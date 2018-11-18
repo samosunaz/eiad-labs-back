@@ -48,9 +48,7 @@ class LabsController extends Controller
     $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
     $labs = $this->repository->all();
 
-    return response()->json([
-      'data' => $labs,
-    ]);
+    return response()->json($labs);
   }
 
   /**
@@ -69,12 +67,7 @@ class LabsController extends Controller
 
       $lab = $this->repository->create($request->all());
 
-      $response = [
-        'message' => 'Lab created.',
-        'data' => $lab->toArray(),
-      ];
-
-      return response()->json($response);
+      return response()->json($lab->presenter());
 
     } catch (ValidatorException $e) {
 
@@ -96,9 +89,7 @@ class LabsController extends Controller
   {
     $lab = $this->repository->find($id);
 
-    return response()->json([
-      'data' => $lab,
-    ]);
+    return response()->json($lab);
   }
 
   /**
@@ -118,12 +109,7 @@ class LabsController extends Controller
 
       $lab = $this->repository->update($request->all(), $id);
 
-      $response = [
-        'message' => 'Lab updated.',
-        'data' => $lab->toArray(),
-      ];
-
-      return response()->json($response);
+      return response()->json($lab->presenter());
 
     } catch (ValidatorException $e) {
 
@@ -145,9 +131,6 @@ class LabsController extends Controller
   {
     $deleted = $this->repository->delete($id);
 
-    return response()->json([
-      'message' => 'Lab deleted.',
-      'deleted' => $deleted,
-    ]);
+    return response()->json($deleted);
   }
 }

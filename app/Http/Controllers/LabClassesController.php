@@ -48,9 +48,7 @@ class LabClassesController extends Controller
     $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
     $labClasses = $this->repository->all();
 
-    return response()->json([
-      'data' => $labClasses,
-    ]);
+    return response()->json($labClasses);
   }
 
   /**
@@ -69,12 +67,7 @@ class LabClassesController extends Controller
 
       $labClass = $this->repository->create($request->all());
 
-      $response = [
-        'message' => 'LabClass created.',
-        'data' => $labClass->toArray(),
-      ];
-
-      return response()->json($response);
+      return response()->json($labClass->presenter());
 
     } catch (ValidatorException $e) {
 
@@ -96,23 +89,7 @@ class LabClassesController extends Controller
   {
     $labClass = $this->repository->find($id);
 
-    return response()->json([
-      'data' => $labClass,
-    ]);
-  }
-
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @param  int $id
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function edit($id)
-  {
-    $labClass = $this->repository->find($id);
-
-    return view('labClasses.edit', compact('labClass'));
+    return response()->json($labClass->presenter());
   }
 
   /**
@@ -132,12 +109,7 @@ class LabClassesController extends Controller
 
       $labClass = $this->repository->update($request->all(), $id);
 
-      $response = [
-        'message' => 'LabClass updated.',
-        'data' => $labClass->toArray(),
-      ];
-
-      return response()->json($response);
+      return response()->json($labClass->presenter());
 
     } catch (ValidatorException $e) {
 
@@ -159,9 +131,6 @@ class LabClassesController extends Controller
   {
     $deleted = $this->repository->delete($id);
 
-    return response()->json([
-      'message' => 'LabClass deleted.',
-      'deleted' => $deleted,
-    ]);
+    return response()->json($deleted);
   }
 }

@@ -48,9 +48,7 @@ class UsersController extends Controller
     $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
     $users = $this->repository->all();
 
-    return response()->json([
-      'data' => $users,
-    ]);
+    return response()->json($users);
   }
 
   /**
@@ -69,13 +67,10 @@ class UsersController extends Controller
 
       $user = $this->repository->create($request->all());
 
-      $response = [
-        'message' => 'User created.',
-        'data' => $user->toArray(),
-      ];
+      return response()->json($user->presenter());
 
-      return response()->json($response);
     } catch (ValidatorException $e) {
+
       return response()->json([
         'error' => true,
         'message' => $e->getMessageBag()
@@ -94,9 +89,7 @@ class UsersController extends Controller
   {
     $user = $this->repository->find($id);
 
-    return response()->json([
-      'data' => $user,
-    ]);
+    return response()->json($user->presenter());
   }
 
   /**
@@ -116,12 +109,7 @@ class UsersController extends Controller
 
       $user = $this->repository->update($request->all(), $id);
 
-      $response = [
-        'message' => 'User updated.',
-        'data' => $user->toArray(),
-      ];
-
-      return response()->json($response);
+      return response()->json($user->presenter());
     } catch (ValidatorException $e) {
 
       return response()->json([
@@ -143,9 +131,6 @@ class UsersController extends Controller
   {
     $deleted = $this->repository->delete($id);
 
-    return response()->json([
-      'message' => 'User deleted.',
-      'deleted' => $deleted,
-    ]);
+    return response()->json($deleted);
   }
 }

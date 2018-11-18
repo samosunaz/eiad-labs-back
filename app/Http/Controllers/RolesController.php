@@ -48,9 +48,7 @@ class RolesController extends Controller
     $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
     $roles = $this->repository->all();
 
-    return response()->json([
-      'data' => $roles,
-    ]);
+    return response()->json($roles);
   }
 
   /**
@@ -68,12 +66,7 @@ class RolesController extends Controller
 
       $role = $this->repository->create($request->all());
 
-      $response = [
-        'message' => 'Role created.',
-        'data' => $role->toArray(),
-      ];
-
-      return response()->json($response);
+      return response()->json($role->presenter());
 
     } catch (ValidatorException $e) {
       return response()->json([
@@ -94,9 +87,7 @@ class RolesController extends Controller
   {
     $role = $this->repository->find($id);
 
-    return response()->json([
-      'data' => $role,
-    ]);
+    return response()->json($role->presenter());
   }
 
   /**
@@ -116,12 +107,7 @@ class RolesController extends Controller
 
       $role = $this->repository->update($request->all(), $id);
 
-      $response = [
-        'message' => 'Role updated.',
-        'data' => $role->toArray(),
-      ];
-
-      return response()->json($response);
+      return response()->json($role->presenter());
 
     } catch (ValidatorException $e) {
 
@@ -144,9 +130,6 @@ class RolesController extends Controller
   {
     $deleted = $this->repository->delete($id);
 
-    return response()->json([
-      'message' => 'Role deleted.',
-      'deleted' => $deleted,
-    ]);
+    return response()->json($deleted);
   }
 }

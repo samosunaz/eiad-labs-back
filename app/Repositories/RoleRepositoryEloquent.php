@@ -2,11 +2,11 @@
 
 namespace App\Repositories;
 
-use Prettus\Repository\Eloquent\BaseRepository;
-use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\RoleRepository;
 use App\Entities\Role;
+use App\Presenters\RolePresenter;
 use App\Validators\RoleValidator;
+use Prettus\Repository\Criteria\RequestCriteria;
+use Prettus\Repository\Eloquent\BaseRepository;
 
 /**
  * Class RoleRepositoryEloquent.
@@ -15,34 +15,42 @@ use App\Validators\RoleValidator;
  */
 class RoleRepositoryEloquent extends BaseRepository implements RoleRepository
 {
-    /**
-     * Specify Model class name
-     *
-     * @return string
-     */
-    public function model()
-    {
-        return Role::class;
-    }
 
-    /**
-    * Specify Validator class name
-    *
-    * @return mixed
-    */
-    public function validator()
-    {
+  protected $skipPresenter = true;
 
-        return RoleValidator::class;
-    }
+  /**
+   * Specify Model class name
+   *
+   * @return string
+   */
+  public function model()
+  {
+    return Role::class;
+  }
+
+  /**
+   * Specify Validator class name
+   *
+   * @return mixed
+   */
+  public function validator()
+  {
+
+    return RoleValidator::class;
+  }
 
 
-    /**
-     * Boot up the repository, pushing criteria
-     */
-    public function boot()
-    {
-        $this->pushCriteria(app(RequestCriteria::class));
-    }
-    
+  /**
+   * Boot up the repository, pushing criteria
+   */
+  public function boot()
+  {
+    $this->pushCriteria(app(RequestCriteria::class));
+  }
+
+  public function presenter()
+  {
+    return RolePresenter::class;
+  }
+
 }

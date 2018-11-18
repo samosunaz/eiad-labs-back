@@ -2,11 +2,10 @@
 
 namespace App\Repositories;
 
-use Prettus\Repository\Eloquent\BaseRepository;
-use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\BuildingRepository;
 use App\Entities\Building;
-use App\Validators\BuildingValidator;
+use App\Presenters\BuildingPresenter;
+use Prettus\Repository\Criteria\RequestCriteria;
+use Prettus\Repository\Eloquent\BaseRepository;
 
 /**
  * Class BuildingRepositoryEloquent.
@@ -15,24 +14,31 @@ use App\Validators\BuildingValidator;
  */
 class BuildingRepositoryEloquent extends BaseRepository implements BuildingRepository
 {
-    /**
-     * Specify Model class name
-     *
-     * @return string
-     */
-    public function model()
-    {
-        return Building::class;
-    }
 
-    
+  protected $skipPresenter = true;
 
-    /**
-     * Boot up the repository, pushing criteria
-     */
-    public function boot()
-    {
-        $this->pushCriteria(app(RequestCriteria::class));
-    }
-    
+  /**
+   * Specify Model class name
+   *
+   * @return string
+   */
+  public function model()
+  {
+    return Building::class;
+  }
+
+
+  /**
+   * Boot up the repository, pushing criteria
+   */
+  public function boot()
+  {
+    $this->pushCriteria(app(RequestCriteria::class));
+  }
+
+  public function presenter()
+  {
+    return BuildingPresenter::class;
+  }
+
 }

@@ -50,9 +50,7 @@ class FloorsController extends Controller
     $floors = $this->repository->all();
 
 
-    return response()->json([
-      'data' => $floors,
-    ]);
+    return response()->json($floors);
   }
 
   /**
@@ -71,12 +69,7 @@ class FloorsController extends Controller
 
       $floor = $this->repository->create($request->all());
 
-      $response = [
-        'message' => 'Floor created.',
-        'data' => $floor->toArray(),
-      ];
-
-      return response()->json($response);
+      return response()->json($floor->presenter());
 
     } catch (ValidatorException $e) {
 
@@ -98,9 +91,7 @@ class FloorsController extends Controller
   {
     $floor = $this->repository->find($id);
 
-    return response()->json([
-      'data' => $floor,
-    ]);
+    return response()->json($floor);
   }
 
   /**
@@ -120,11 +111,7 @@ class FloorsController extends Controller
 
       $floor = $this->repository->update($request->all(), $id);
 
-      $response = [
-        'message' => 'Floor updated.',
-        'data' => $floor->toArray(),
-      ];
-      return response()->json($response);
+      return response()->json($floor->presenter());
 
     } catch (ValidatorException $e) {
 
@@ -146,9 +133,6 @@ class FloorsController extends Controller
   {
     $deleted = $this->repository->delete($id);
 
-    return response()->json([
-      'message' => 'Floor deleted.',
-      'deleted' => $deleted,
-    ]);
+    return response()->json($deleted);
   }
 }

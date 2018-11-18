@@ -2,11 +2,10 @@
 
 namespace App\Repositories;
 
-use Prettus\Repository\Eloquent\BaseRepository;
-use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\LabClassRepository;
 use App\Entities\LabClass;
-use App\Validators\LabClassValidator;
+use App\Presenters\LabClassPresenter;
+use Prettus\Repository\Criteria\RequestCriteria;
+use Prettus\Repository\Eloquent\BaseRepository;
 
 /**
  * Class LabClassRepositoryEloquent.
@@ -15,24 +14,32 @@ use App\Validators\LabClassValidator;
  */
 class LabClassRepositoryEloquent extends BaseRepository implements LabClassRepository
 {
-    /**
-     * Specify Model class name
-     *
-     * @return string
-     */
-    public function model()
-    {
-        return LabClass::class;
-    }
 
-    
+  protected $skipPresenter = true;
 
-    /**
-     * Boot up the repository, pushing criteria
-     */
-    public function boot()
-    {
-        $this->pushCriteria(app(RequestCriteria::class));
-    }
-    
+  /**
+   * Specify Model class name
+   *
+   * @return string
+   */
+  public function model()
+  {
+    return LabClass::class;
+  }
+
+
+  /**
+   * Boot up the repository, pushing criteria
+   */
+  public function boot()
+  {
+    $this->pushCriteria(app(RequestCriteria::class));
+  }
+
+
+  public function presenter()
+  {
+    return LabClassPresenter::class;
+  }
+
 }

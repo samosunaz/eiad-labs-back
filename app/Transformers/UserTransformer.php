@@ -12,22 +12,22 @@ use App\Entities\User;
  */
 class UserTransformer extends TransformerAbstract
 {
-    /**
-     * Transform the User entity.
-     *
-     * @param \App\Entities\User $model
-     *
-     * @return array
-     */
-    public function transform(User $model)
-    {
-        return [
-            'id'         => (int) $model->id,
+  /**
+   * Transform the User entity.
+   *
+   * @param \App\Entities\User $model
+   *
+   * @return array
+   */
+  public function transform(User $model)
+  {
+    return [
+      'id' => (int)$model->id,
+      'name' => $model->name,
+      'email' => $model->email,
+      'role' => $model->role->type,
 
-            /* place your other model properties here */
-
-            'created_at' => $model->created_at,
-            'updated_at' => $model->updated_at
-        ];
-    }
+      /* place your other model properties here */
+    ];
+  }
 }

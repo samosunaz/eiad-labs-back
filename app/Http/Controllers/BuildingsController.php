@@ -49,9 +49,7 @@ class BuildingsController extends Controller
     $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
     $buildings = $this->repository->all();
 
-    return response()->json([
-      'data' => $buildings,
-    ]);
+    return response()->json($buildings);
 
   }
 
@@ -71,12 +69,7 @@ class BuildingsController extends Controller
 
       $building = $this->repository->create($request->all());
 
-      $response = [
-        'message' => 'Building created.',
-        'data' => $building->toArray(),
-      ];
-
-      return response()->json($response);
+      return response()->json($building->presenter());
 
     } catch (ValidatorException $e) {
 
@@ -98,9 +91,7 @@ class BuildingsController extends Controller
   {
     $building = $this->repository->find($id);
 
-    return response()->json([
-      'data' => $building,
-    ]);
+    return response()->json($building);
   }
 
   /**
@@ -120,12 +111,7 @@ class BuildingsController extends Controller
 
       $building = $this->repository->update($request->all(), $id);
 
-      $response = [
-        'message' => 'Building updated.',
-        'data' => $building->toArray(),
-      ];
-
-      return response()->json($response);
+      return response()->json($building->presenter());
 
     } catch (ValidatorException $e) {
 
@@ -148,9 +134,6 @@ class BuildingsController extends Controller
   {
     $deleted = $this->repository->delete($id);
 
-    return response()->json([
-      'message' => 'Building deleted.',
-      'deleted' => $deleted,
-    ]);
+    return response()->json($deleted);
   }
 }

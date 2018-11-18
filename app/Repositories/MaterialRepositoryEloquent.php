@@ -2,11 +2,11 @@
 
 namespace App\Repositories;
 
-use Prettus\Repository\Eloquent\BaseRepository;
-use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\MaterialRepository;
 use App\Entities\Material;
+use App\Presenters\MaterialPresenter;
 use App\Validators\MaterialValidator;
+use Prettus\Repository\Criteria\RequestCriteria;
+use Prettus\Repository\Eloquent\BaseRepository;
 
 /**
  * Class MaterialRepositoryEloquent.
@@ -15,34 +15,42 @@ use App\Validators\MaterialValidator;
  */
 class MaterialRepositoryEloquent extends BaseRepository implements MaterialRepository
 {
-    /**
-     * Specify Model class name
-     *
-     * @return string
-     */
-    public function model()
-    {
-        return Material::class;
-    }
 
-    /**
-    * Specify Validator class name
-    *
-    * @return mixed
-    */
-    public function validator()
-    {
+  protected $skipPresenter = true;
 
-        return MaterialValidator::class;
-    }
+  /**
+   * Specify Model class name
+   *
+   * @return string
+   */
+  public function model()
+  {
+    return Material::class;
+  }
+
+  /**
+   * Specify Validator class name
+   *
+   * @return mixed
+   */
+  public function validator()
+  {
+
+    return MaterialValidator::class;
+  }
 
 
-    /**
-     * Boot up the repository, pushing criteria
-     */
-    public function boot()
-    {
-        $this->pushCriteria(app(RequestCriteria::class));
-    }
-    
+  /**
+   * Boot up the repository, pushing criteria
+   */
+  public function boot()
+  {
+    $this->pushCriteria(app(RequestCriteria::class));
+  }
+
+  public function presenter()
+  {
+    return MaterialPresenter::class;
+  }
+
 }

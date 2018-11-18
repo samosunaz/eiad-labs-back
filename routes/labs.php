@@ -1,13 +1,16 @@
 <?php
-/**@var $router \Laravel\Lumen\Routing\Router */
+/**
+ * @var \Laravel\Lumen\Routing\Router $router
+ */
 $router->group(['prefix' => 'labs'], function () use ($router) {
-  $router->get('', 'LabController@all');
+  $router->group(['prefix' => ''], function () use ($router) {
+    $router->get('', 'LabsController@index');
+    $router->post('', 'LabsController@store');
+  });
 
   $router->group(['prefix' => '{lab_id}'], function () use ($router) {
-    $router->get('', 'LabController@findById');
-
-    $router->get('/classes', 'LabController@classes');
-
-    $router->get('/materials', 'LabController@materials');
+    $router->delete('', 'LabsController@destroy');
+    $router->get('', 'LabsController@show');
+    $router->put('', 'LabsController@update');
   });
 });

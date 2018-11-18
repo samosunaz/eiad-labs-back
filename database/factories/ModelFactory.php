@@ -11,9 +11,17 @@
 |
 */
 
-$factory->define(App\User::class, function (Faker\Generator $faker) {
-    return [
-        'name' => $faker->name,
-        'email' => $faker->email,
-    ];
+$factory->define(\App\Entities\User::class, function (Faker\Generator $faker) {
+  return [
+    'name' => $faker->name,
+    'email' => $faker->unique()->email,
+  ];
 });
+
+$factory->define(\App\Entities\Role::class, function (Faker\Generator $faker) {
+  return [
+    'type' => $faker->name,
+  ];
+});
+
+

@@ -9,70 +9,69 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\BuildingRepository;
-use App\Repositories\Repository;
+use App\Entities\User;
 use App\Repositories\UserRepository;
 use Firebase\JWT\JWT;
-use Firebase\JWT\SignatureInvalidException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class AuthenticationController extends Controller
 {
 
-  protected $request;
-  protected $building;
+  private $request;
+  private $repository;
 
   public function __construct(Request $request, UserRepository $repository)
   {
-    parent::__construct($request, $repository);
+    $this->request = $request;
+    $this->repository = $repository;
   }
 
-  public function login()
+  public function getAuthenticatedUser()
   {
-    $body = $this->request->all();
-    $email = $body['email'];
-    $password = $body['password'];
-
-    $user = $this->repository->findBy('email', $email);
-    if (!$user) {
-      throw new UnauthorizedHttpException('');
-    }
-    if ($user->password != $password) {
-      throw new UnauthorizedHttpException('');
-    }
-
-    $token = JWT::encode($user, getenv('JWT_KEY'), getenv('JWT_ALGO'));
-
-
-    $payload = [
-      'token' => $token,
-      'user' => $user
-    ];
-
-    return new Response($payload, Response::HTTP_OK);
+    return $this->request->auth->presenter();
   }
 
   public function authenticate()
   {
-    $body = $this->request->all();
+    $this->validate($this->request, [
+      'email' => 'required|email',
+      'password' => 'required'
+    ]);
 
-    if (!$body['token']) {
-      throw new UnauthorizedHttpException('');
+    $user = $this->repository->findWhere([
+      'email' => $this->request->get('email')
+    ])->first();
+
+    if (!$user) {
+      throw new NotFoundHttpException();
     }
 
-    $jwt = $body['token'];
-
-    try {
-      $decoded = JWT::decode($jwt, getenv('JWT_KEY'), [getenv('JWT_ALGO')]);
-      if ($decoded->id) {
-        $user = $this->repository->find($decoded->id);
-      }
-    } catch (SignatureInvalidException $exception) {
-      throw new UnauthorizedHttpException('');
+    if (Hash::check($this->request->get('password'), $user->password)) {
+      return response()->json(
+        [
+          'token' => $this->jwt($user),
+          'user' => $user->presenter()
+        ]
+      );
     }
-    return new Response($user, Response::HTTP_OK);
+
+    throw new UnauthorizedHttpException('');
   }
+
+  private function jwt(User $user)
+  {
+    $payload = [
+      'iss' => 'lumen-jwt',
+      'sub' => $user->id,
+      'iat' => time(),
+      'exp' => time() + 60 * 60
+    ];
+
+    return JWT::encode($payload, env('JWT_KEY'));
+  }
+
 }
