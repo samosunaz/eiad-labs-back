@@ -22,15 +22,25 @@ class Floor extends Model implements Presentable, Transformable
    *
    * @var array
    */
-  protected $fillable = [];
+  protected $fillable = [
+    'id',
+    'name',
+    'building_id'
+  ];
   protected $table = 'floor';
+  public $incrementing = false;
   protected $with = [
-    'building'
+    'building',
+    'labs'
   ];
 
   public function building()
   {
     return $this->belongsTo(Building::class);
+  }
+
+  public function labs() {
+    return $this->hasMany(Lab::class);
   }
 
 }

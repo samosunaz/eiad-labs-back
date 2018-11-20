@@ -2,19 +2,24 @@
 
 namespace App\Repositories;
 
-use App\Entities\Lab;
-use App\Presenters\LabPresenter;
-use App\Validators\LabValidator;
-use Prettus\Repository\Criteria\RequestCriteria;
+use App\Presenters\MemoPresenter;
 use Prettus\Repository\Eloquent\BaseRepository;
+use Prettus\Repository\Criteria\RequestCriteria;
+use App\Repositories\MemoRepository;
+use App\Entities\Memo;
+use App\Validators\MemoValidator;
 
 /**
- * Class LabRepositoryEloquent.
+ * Class MemoRepositoryEloquent.
  *
  * @package namespace App\Repositories;
  */
-class LabRepositoryEloquent extends BaseRepository implements LabRepository
+class MemoRepositoryEloquent extends BaseRepository implements MemoRepository
 {
+
+  protected $fieldSearchable = [
+    'status'
+  ];
   /**
    * Specify Model class name
    *
@@ -22,7 +27,7 @@ class LabRepositoryEloquent extends BaseRepository implements LabRepository
    */
   public function model()
   {
-    return Lab::class;
+    return Memo::class;
   }
 
   /**
@@ -33,7 +38,7 @@ class LabRepositoryEloquent extends BaseRepository implements LabRepository
   public function validator()
   {
 
-    return LabValidator::class;
+    return MemoValidator::class;
   }
 
 
@@ -47,7 +52,7 @@ class LabRepositoryEloquent extends BaseRepository implements LabRepository
 
   public function presenter()
   {
-    return LabPresenter::class;
+    return MemoPresenter::class;
   }
 
 }

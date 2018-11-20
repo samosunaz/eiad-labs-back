@@ -3,19 +3,17 @@
 namespace App\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use Prettus\Repository\Contracts\Presentable;
 use Prettus\Repository\Contracts\Transformable;
-use Prettus\Repository\Traits\PresentableTrait;
 use Prettus\Repository\Traits\TransformableTrait;
 
 /**
- * Class LabClass.
+ * Class Memo.
  *
  * @package namespace App\Entities;
  */
-class LabClass extends Model implements Presentable, Transformable
+class Memo extends Model implements Transformable
 {
-  use PresentableTrait, TransformableTrait;
+  use TransformableTrait;
 
   /**
    * The attributes that are mass assignable.
@@ -23,17 +21,19 @@ class LabClass extends Model implements Presentable, Transformable
    * @var array
    */
   protected $fillable = [
-    'id',
-    'name',
+    'student_id',
+    'student_name',
+    'student_email',
+    'material_id',
     'starts_at',
     'ends_at',
-    'lab_id',
-    'days'
+    'status'
   ];
-  protected $table = 'lab_class';
+  protected $table = 'memo';
 
-  public function lab()
+  public function material()
   {
-    return $this->belongsTo(Lab::class);
+    return $this->belongsTo(Material::class);
   }
+
 }

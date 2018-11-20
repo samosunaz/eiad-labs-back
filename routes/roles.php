@@ -11,5 +11,6 @@ $router->group(['prefix' => 'roles'], function () use ($router) {
     $router->delete('', 'RolesController@destroy');
     $router->get('', 'RolesController@show');
     $router->put('', 'RolesController@update');
+    $router->get('/users', 'RolesController@users');
   });
 });

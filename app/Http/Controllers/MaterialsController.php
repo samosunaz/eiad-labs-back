@@ -6,6 +6,7 @@ use App\Http\Requests\MaterialCreateRequest;
 use App\Http\Requests\MaterialUpdateRequest;
 use App\Repositories\MaterialRepository;
 use App\Validators\MaterialValidator;
+use Illuminate\Http\Request;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
 
@@ -54,16 +55,13 @@ class MaterialsController extends Controller
   /**
    * Store a newly created resource in storage.
    *
-   * @param  MaterialCreateRequest $request
    *
+   * @param Request $request
    * @return \Illuminate\Http\Response
-   *
    */
-  public function store(MaterialCreateRequest $request)
+  public function store(Request $request)
   {
     try {
-
-      $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
       $material = $this->repository->create($request->all());
 
@@ -94,17 +92,14 @@ class MaterialsController extends Controller
   /**
    * Update the specified resource in storage.
    *
-   * @param  MaterialUpdateRequest $request
+   * @param Request $request
    * @param  string $id
    *
    * @return \Illuminate\Http\Response
-   *
    */
-  public function update(MaterialUpdateRequest $request, $id)
+  public function update(Request $request, $id)
   {
     try {
-
-      $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
       $material = $this->repository->update($request->all(), $id);
 
@@ -132,5 +127,12 @@ class MaterialsController extends Controller
     $deleted = $this->repository->delete($id);
 
     return response()->json($deleted);
+  }
+
+  public function materials($id, $status)
+  {
+    $material = $this->repository->find($id);
+    $reservations = $material->reservations;
+    return response()->json($reservations);
   }
 }

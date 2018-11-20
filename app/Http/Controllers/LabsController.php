@@ -6,6 +6,7 @@ use App\Http\Requests\LabCreateRequest;
 use App\Http\Requests\LabUpdateRequest;
 use App\Repositories\LabRepository;
 use App\Validators\LabValidator;
+use Illuminate\Http\Request;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
 
@@ -54,20 +55,16 @@ class LabsController extends Controller
   /**
    * Store a newly created resource in storage.
    *
-   * @param  LabCreateRequest $request
    *
+   * @param Request $request
    * @return \Illuminate\Http\Response
-   *
    */
-  public function store(LabCreateRequest $request)
+  public function store(Request $request)
   {
     try {
-
-      $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
-
       $lab = $this->repository->create($request->all());
 
-      return response()->json($lab->presenter());
+      return response()->json($lab);
 
     } catch (ValidatorException $e) {
 

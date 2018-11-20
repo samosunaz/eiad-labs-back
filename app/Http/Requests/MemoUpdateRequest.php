@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
-class BuildingCreateRequest extends Request
+use App\Http\Requests\FormRequest;
+
+class MemoUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

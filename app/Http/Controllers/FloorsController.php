@@ -6,6 +6,7 @@ use App\Http\Requests\FloorCreateRequest;
 use App\Http\Requests\FloorUpdateRequest;
 use App\Repositories\FloorRepository;
 use App\Validators\FloorValidator;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
@@ -56,16 +57,13 @@ class FloorsController extends Controller
   /**
    * Store a newly created resource in storage.
    *
-   * @param  FloorCreateRequest $request
    *
+   * @param Request $request
    * @return Response
-   *
    */
-  public function store(FloorCreateRequest $request)
+  public function store(Request $request)
   {
     try {
-
-      $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
       $floor = $this->repository->create($request->all());
 

@@ -2,8 +2,8 @@
 
 namespace App\Transformers;
 
-use League\Fractal\TransformerAbstract;
 use App\Entities\LabClass;
+use League\Fractal\TransformerAbstract;
 
 /**
  * Class LabClassTransformer.
@@ -12,22 +12,23 @@ use App\Entities\LabClass;
  */
 class LabClassTransformer extends TransformerAbstract
 {
-    /**
-     * Transform the LabClass entity.
-     *
-     * @param \App\Entities\LabClass $model
-     *
-     * @return array
-     */
-    public function transform(LabClass $model)
-    {
-        return [
-            'id'         => (int) $model->id,
-
-            /* place your other model properties here */
-
-            'created_at' => $model->created_at,
-            'updated_at' => $model->updated_at
-        ];
-    }
+  /**
+   * Transform the LabClass entity.
+   *
+   * @param \App\Entities\LabClass $model
+   *
+   * @return array
+   */
+  public function transform(LabClass $model)
+  {
+    return [
+      'id' => (int)$model->id,
+      'title' => $model->name,
+      'lab_id' => $model->lab_id,
+      'dow' => explode(',', $model->days),
+      'start' => $model->starts_at,
+      'end' => $model->ends_at,
+      'color' => 'gray'
+    ];
+  }
 }

@@ -2,8 +2,8 @@
 
 namespace App\Transformers;
 
-use League\Fractal\TransformerAbstract;
 use App\Entities\Floor;
+use League\Fractal\TransformerAbstract;
 
 /**
  * Class FloorTransformer.
@@ -24,7 +24,8 @@ class FloorTransformer extends TransformerAbstract
     return [
       'id' => (int)$model->id,
       'name' => $model->name,
-      'building' => $model->building->name,
+      'building_id' => $model->building_id,
+      'building' => $model->building,
     ];
   }
 }

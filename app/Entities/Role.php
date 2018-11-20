@@ -25,4 +25,8 @@ class Role extends Model implements Presentable, Transformable
   protected $fillable = [];
   protected $table = 'role';
 
+
+  public function users() {
+    return $this->hasMany(User::class);
+  }
 }

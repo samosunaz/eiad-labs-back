@@ -22,6 +22,23 @@ class Material extends Model implements Presentable, Transformable
    *
    * @var array
    */
-  protected $fillable = [];
+  protected $fillable = [
+    'id',
+    'name',
+    'brand',
+    'model',
+    'lab_id'
+  ];
+  public $incrementing = false;
   protected $table = 'material';
+
+  public function lab()
+  {
+    return $this->belongsTo(Lab::class);
+  }
+
+  public function memos()
+  {
+    return $this->hasMany(Memo::class);
+  }
 }

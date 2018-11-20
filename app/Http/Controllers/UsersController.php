@@ -6,6 +6,8 @@ use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Repositories\UserRepository;
 use App\Validators\UserValidator;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
 
@@ -54,18 +56,17 @@ class UsersController extends Controller
   /**
    * Store a newly created resource in storage.
    *
-   * @param  UserCreateRequest $request
    *
+   * @param Request $request
    * @return \Illuminate\Http\Response
-   *
    */
-  public function store(UserCreateRequest $request)
+  public function store(Request $request)
   {
     try {
+      $userData = $request->all();
+      $userData['password'] = Hash::make($userData['password']);
 
-      $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
-
-      $user = $this->repository->create($request->all());
+      $user = $this->repository->create($userData);
 
       return response()->json($user->presenter());
 

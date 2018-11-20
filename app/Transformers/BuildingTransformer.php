@@ -12,22 +12,19 @@ use App\Entities\Building;
  */
 class BuildingTransformer extends TransformerAbstract
 {
-    /**
-     * Transform the Building entity.
-     *
-     * @param \App\Entities\Building $model
-     *
-     * @return array
-     */
-    public function transform(Building $model)
-    {
-        return [
-            'id'         => (int) $model->id,
-
-            /* place your other model properties here */
-
-            'created_at' => $model->created_at,
-            'updated_at' => $model->updated_at
-        ];
-    }
+  /**
+   * Transform the Building entity.
+   *
+   * @param \App\Entities\Building $model
+   *
+   * @return array
+   */
+  public function transform(Building $model)
+  {
+    return [
+      'id' => (int)$model->id,
+      'name' => $model->name,
+      'floors' => $model->floors,
+    ];
+  }
 }

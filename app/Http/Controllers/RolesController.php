@@ -47,7 +47,6 @@ class RolesController extends Controller
   {
     $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
     $roles = $this->repository->all();
-
     return response()->json($roles);
   }
 
@@ -131,5 +130,10 @@ class RolesController extends Controller
     $deleted = $this->repository->delete($id);
 
     return response()->json($deleted);
+  }
+
+  public function users($id)
+  {
+    return $this->repository->find($id)->users;
   }
 }

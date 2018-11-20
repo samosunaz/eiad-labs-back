@@ -6,6 +6,7 @@ use App\Http\Requests\BuildingCreateRequest;
 use App\Http\Requests\BuildingUpdateRequest;
 use App\Repositories\BuildingRepository;
 use App\Validators\BuildingValidator;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
@@ -56,17 +57,13 @@ class BuildingsController extends Controller
   /**
    * Store a newly created resource in storage.
    *
-   * @param  BuildingCreateRequest $request
    *
+   * @param Request $request
    * @return \Illuminate\Http\Response
-   *
    */
-  public function store(BuildingCreateRequest $request)
+  public function store(Request $request)
   {
     try {
-
-      $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
-
       $building = $this->repository->create($request->all());
 
       return response()->json($building->presenter());
@@ -97,18 +94,15 @@ class BuildingsController extends Controller
   /**
    * Update the specified resource in storage.
    *
-   * @param  BuildingUpdateRequest $request
+   * @param Request $request
    * @param  string $id
    *
    * @return Response
-   *
    */
-  public function update(BuildingUpdateRequest $request, $id)
+  public function update(Request $request, $id)
   {
     try {
-
-      $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
-
+      
       $building = $this->repository->update($request->all(), $id);
 
       return response()->json($building->presenter());

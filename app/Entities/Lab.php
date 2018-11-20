@@ -22,7 +22,30 @@ class Lab extends Model implements Presentable, Transformable
    *
    * @var array
    */
-  protected $fillable = [];
+  protected $fillable = [
+    'id',
+    'name',
+    'floor_id',
+    'user_id'
+  ];
   protected $table = 'lab';
+  public $incrementing = false;
+  protected $with = [
+    'classes'
+  ];
 
+  public function classes()
+  {
+    return $this->hasMany(LabClass::class);
+  }
+
+  public function floor()
+  {
+    return $this->belongsTo(Floor::class);
+  }
+
+  public function materials()
+  {
+    return $this->hasMany(Material::class);
+  }
 }
