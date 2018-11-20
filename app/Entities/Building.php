@@ -22,7 +22,16 @@ class Building extends Model implements Presentable, Transformable
    *
    * @var array
    */
-  protected $fillable = [];
+  protected $fillable = [
+    'id',
+    'name'
+  ];
+  public $incrementing = false;
   protected $table = 'building';
+
+  public function floors()
+  {
+    return $this->hasMany(Floor::class);
+  }
 
 }

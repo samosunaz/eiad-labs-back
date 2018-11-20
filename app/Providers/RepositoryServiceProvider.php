@@ -2,9 +2,6 @@
 
 namespace App\Providers;
 
-use App\Entities\Floor;
-use App\Entities\LabClass;
-use App\Entities\Material;
 use App\Repositories\BuildingRepository;
 use App\Repositories\BuildingRepositoryEloquent;
 use App\Repositories\FloorRepository;
@@ -15,6 +12,8 @@ use App\Repositories\LabRepository;
 use App\Repositories\LabRepositoryEloquent;
 use App\Repositories\MaterialRepository;
 use App\Repositories\MaterialRepositoryEloquent;
+use App\Repositories\MemoRepository;
+use App\Repositories\MemoRepositoryEloquent;
 use App\Repositories\RoleRepository;
 use App\Repositories\RoleRepositoryEloquent;
 use App\Repositories\UserRepository;
@@ -46,6 +45,7 @@ class RepositoryServiceProvider extends ServiceProvider
     App::bind(LabRepository::class, LabRepositoryEloquent::class);
     App::bind(LabClassRepository::class, LabClassRepositoryEloquent::class);
     App::bind(MaterialRepository::class, MaterialRepositoryEloquent::class);
+    App::bind(MemoRepository::class, MemoRepositoryEloquent::class);
     App::bind(RoleRepository::class, RoleRepositoryEloquent::class);
     App::bind(UserRepository::class, UserRepositoryEloquent::class);
   }

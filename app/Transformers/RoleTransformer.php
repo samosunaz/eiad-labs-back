@@ -12,22 +12,18 @@ use App\Entities\Role;
  */
 class RoleTransformer extends TransformerAbstract
 {
-    /**
-     * Transform the Role entity.
-     *
-     * @param \App\Entities\Role $model
-     *
-     * @return array
-     */
-    public function transform(Role $model)
-    {
-        return [
-            'id'         => (int) $model->id,
-
-            /* place your other model properties here */
-
-            'created_at' => $model->created_at,
-            'updated_at' => $model->updated_at
-        ];
-    }
+  /**
+   * Transform the Role entity.
+   *
+   * @param \App\Entities\Role $model
+   *
+   * @return array
+   */
+  public function transform(Role $model)
+  {
+    return [
+      'id' => (int)$model->id,
+      'type' => $model->type,
+    ];
+  }
 }

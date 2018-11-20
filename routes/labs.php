@@ -12,5 +12,7 @@ $router->group(['prefix' => 'labs'], function () use ($router) {
     $router->delete('', 'LabsController@destroy');
     $router->get('', 'LabsController@show');
     $router->put('', 'LabsController@update');
+
+    $router->get('/classes', 'LabsController@classes');
   });
 });

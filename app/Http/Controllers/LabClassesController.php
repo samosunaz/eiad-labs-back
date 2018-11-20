@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LabClassCreateRequest;
 use App\Http\Requests\LabClassUpdateRequest;
+use App\Http\Requests\Request;
 use App\Repositories\LabClassRepository;
 use App\Validators\LabClassValidator;
 use Prettus\Validator\Contracts\ValidatorInterface;
@@ -41,9 +42,10 @@ class LabClassesController extends Controller
   /**
    * Display a listing of the resource.
    *
+   * @param Request $request
    * @return \Illuminate\Http\Response
    */
-  public function index()
+  public function index(Request $request)
   {
     $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
     $labClasses = $this->repository->all();
@@ -54,16 +56,14 @@ class LabClassesController extends Controller
   /**
    * Store a newly created resource in storage.
    *
-   * @param  LabClassCreateRequest $request
    *
+   * @param \Illuminate\Http\Request $request
    * @return \Illuminate\Http\Response
-   *
    */
-  public function store(LabClassCreateRequest $request)
+  public function store(\Illuminate\Http\Request $request)
   {
     try {
 
-      $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
       $labClass = $this->repository->create($request->all());
 
@@ -95,13 +95,12 @@ class LabClassesController extends Controller
   /**
    * Update the specified resource in storage.
    *
-   * @param  LabClassUpdateRequest $request
+   * @param \Illuminate\Http\Request $request
    * @param  string $id
    *
    * @return \Illuminate\Http\Response
-   *
    */
-  public function update(LabClassUpdateRequest $request, $id)
+  public function update(\Illuminate\Http\Request $request, $id)
   {
     try {
 

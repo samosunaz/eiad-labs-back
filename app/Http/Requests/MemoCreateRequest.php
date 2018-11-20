@@ -3,7 +3,9 @@
 namespace App\Http\Requests;
 
 
-class BuildingUpdateRequest extends Request
+use Prettus\Validator\Contracts\ValidatorInterface;
+
+class MemoCreateRequest extends Request
 {
   /**
    * Determine if the user is authorized to make this request.
@@ -22,6 +24,10 @@ class BuildingUpdateRequest extends Request
    */
   public function rules()
   {
-    return [];
+    return [
+      ValidatorInterface::RULE_CREATE => [
+        'title' => 'required'
+      ]
+    ];
   }
 }

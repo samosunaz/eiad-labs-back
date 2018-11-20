@@ -12,22 +12,35 @@ use App\Entities\Lab;
  */
 class LabTransformer extends TransformerAbstract
 {
-    /**
-     * Transform the Lab entity.
-     *
-     * @param \App\Entities\Lab $model
-     *
-     * @return array
-     */
-    public function transform(Lab $model)
-    {
-        return [
-            'id'         => (int) $model->id,
+  protected $defaultIncludes = [
+    'classes'
+  ];
 
-            /* place your other model properties here */
+  /**
+   * Transform the Lab entity.
+   *
+   * @param \App\Entities\Lab $model
+   *
+   * @return array
+   */
+  public function transform(Lab $model)
+  {
+    return [
+      'id' => (int)$model->id,
+      'name' => $model->name,
+      'floor' => $model->floor->name,
+      'building' => $model->floor->building->name,
+      'classes' => $model->labClasses,
+      'materials' => $model->materials
 
-            'created_at' => $model->created_at,
-            'updated_at' => $model->updated_at
-        ];
-    }
+      /* place your other model properties here */
+    ];
+  }
+
+  public function includeClasses(Lab $model)
+  {
+    $classes = $model->classes;
+
+    return $this->collection($classes, new LabClassTransformer);
+  }
 }
