@@ -2,9 +2,8 @@
 
 namespace App\Http\Requests;
 
-use App\Http\Requests\FormRequest;
 
-class LabUpdateRequest extends FormRequest
+class LabUpdateRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.

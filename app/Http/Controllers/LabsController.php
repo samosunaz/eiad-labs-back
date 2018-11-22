@@ -92,13 +92,12 @@ class LabsController extends Controller
   /**
    * Update the specified resource in storage.
    *
-   * @param  LabUpdateRequest $request
+   * @param Request $request
    * @param  string $id
    *
    * @return \Illuminate\Http\Response
-   *
    */
-  public function update(LabUpdateRequest $request, $id)
+  public function update(Request $request, $id)
   {
     try {
 
@@ -106,7 +105,7 @@ class LabsController extends Controller
 
       $lab = $this->repository->update($request->all(), $id);
 
-      return response()->json($lab->presenter());
+      return response()->json($lab);
 
     } catch (ValidatorException $e) {
 

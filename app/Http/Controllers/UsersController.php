@@ -4,10 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
+use App\Presenters\MemoPresenter;
 use App\Repositories\UserRepository;
+use App\Transformers\MemoTransformer;
 use App\Validators\UserValidator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
+use League\Fractal\Manager;
+use League\Fractal\Resource\Item;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
 
@@ -133,5 +138,28 @@ class UsersController extends Controller
     $deleted = $this->repository->delete($id);
 
     return response()->json($deleted);
+  }
+
+  public function materials($id)
+  {
+    return response()->json($this->repository->find($id)->materials);
+  }
+
+  public function memos(Request $request, $id)
+  {
+    $status = $request->query->get('status') ?? '';
+    $materials = $this->repository->find($id)->materials()
+      ->whereHas('memos', function ($query) use ($status) {
+        return $query->where('status', 'like', $status);
+      })
+      ->get()
+      ->pluck('memos')
+      ->flatten();
+
+    $col = new \League\Fractal\Resource\Collection($materials, new MemoTransformer);
+    $fractal = new Manager();
+    $fractal->parseIncludes('material');
+    $data = $fractal->createData($col);
+    return response()->json($data->toArray());
   }
 }

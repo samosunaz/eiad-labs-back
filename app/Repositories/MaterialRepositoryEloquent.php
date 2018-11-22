@@ -15,6 +15,14 @@ use Prettus\Repository\Eloquent\BaseRepository;
  */
 class MaterialRepositoryEloquent extends BaseRepository implements MaterialRepository
 {
+  protected $fieldSearchable = [
+    'id',
+    'name',
+    'brand',
+    'model',
+    'lab_id',
+    'lab'
+];
 
   protected $skipPresenter = true;
 

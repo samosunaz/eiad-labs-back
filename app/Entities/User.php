@@ -40,6 +40,14 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     return $this->belongsTo(Role::class);
   }
 
+  public function labs() {
+    return $this->hasMany(Lab::class);
+  }
+
+  public function materials() {
+    return $this->hasManyThrough(Material::class, Lab::class);
+  }
+
   /**
    * Determine if the entity has a given ability.
    *
