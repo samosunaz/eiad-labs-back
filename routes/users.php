@@ -12,5 +12,11 @@ $router->group(['prefix' => 'users'], function () use ($router) {
     $router->delete('', 'UsersController@destroy');
     $router->get('', 'UsersController@show');
     $router->put('', 'UsersController@update');
+
+    $router->group(['prefix' => 'labs'], function () use ($router) {
+      $router->get('materials', 'UsersController@materials');
+      $router->get('memos', 'UsersController@memos');
+    });
+
   });
 });

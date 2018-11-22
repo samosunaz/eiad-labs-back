@@ -31,7 +31,8 @@ class LabTransformer extends TransformerAbstract
       'floor' => $model->floor->name,
       'building' => $model->floor->building->name,
       'classes' => $model->labClasses,
-      'materials' => $model->materials
+      'materials' => $model->materials,
+      'user_id' => (int)$model->user_id
 
       /* place your other model properties here */
     ];
