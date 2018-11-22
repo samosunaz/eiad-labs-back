@@ -27,6 +27,7 @@ class MemoTransformer extends TransformerAbstract
   public function transform(Memo $model)
   {
     return [
+      'id' => (int)$model->id,
       'title' => $model->student_id . '-' . $model->id,
       'start' => $model->starts_at,
       'end' => $model->ends_at,

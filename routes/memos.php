@@ -10,15 +10,16 @@
  * @var \Laravel\Lumen\Routing\Router $router
  */
 
-$router->group(['prefix' => 'memos'], function() use ($router){
+$router->group(['prefix' => 'memos'], function () use ($router) {
 
   $router->group(['prefix' => ''], function () use ($router) {
     $router->get('', 'MemosController@index');
     $router->post('', 'MemosController@store');
   });
 
-  $router->group(['prefix' => '{memo_id}'], function() use ($router){
-
+  $router->group(['prefix' => '{memo_id}'], function () use ($router) {
+    $router->delete('', 'MemosController@destroy');
+    $router->put('', 'MemosController@update');
   });
 
 });
