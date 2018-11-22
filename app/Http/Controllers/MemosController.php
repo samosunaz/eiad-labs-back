@@ -2,16 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use Illuminate\Support\Facades\DB;
-use Prettus\Validator\Contracts\ValidatorInterface;
-use Prettus\Validator\Exceptions\ValidatorException;
-use App\Http\Requests\MemoCreateRequest;
 use App\Http\Requests\MemoUpdateRequest;
 use App\Repositories\MemoRepository;
 use App\Validators\MemoValidator;
+use Illuminate\Http\Request;
+use Prettus\Validator\Contracts\ValidatorInterface;
+use Prettus\Validator\Exceptions\ValidatorException;
 
 /**
  * Class MemosController.
@@ -92,70 +88,31 @@ class MemosController extends Controller
   {
     $memo = $this->repository->find($id);
 
-    if (request()->wantsJson()) {
-
-      return response()->json([
-        'data' => $memo,
-      ]);
-    }
-
-    return view('memos.show', compact('memo'));
-  }
-
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @param  int $id
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function edit($id)
-  {
-    $memo = $this->repository->find($id);
-
-    return view('memos.edit', compact('memo'));
+    return response()->json($memo);
   }
 
   /**
    * Update the specified resource in storage.
-   *
-   * @param  MemoUpdateRequest $request
+   * @param Request $request
    * @param  string $id
    *
-   * @return Response
-   *
-   * @throws \Prettus\Validator\Exceptions\ValidatorException
+   * @return \Illuminate\Http\JsonResponse
    */
-  public function update(MemoUpdateRequest $request, $id)
+  public function update(Request $request, $id)
   {
     try {
-
       $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
       $memo = $this->repository->update($request->all(), $id);
 
-      $response = [
-        'message' => 'Memo updated.',
-        'data' => $memo->toArray(),
-      ];
+      return response()->json($memo);
 
-      if ($request->wantsJson()) {
-
-        return response()->json($response);
-      }
-
-      return redirect()->back()->with('message', $response['message']);
     } catch (ValidatorException $e) {
 
-      if ($request->wantsJson()) {
-
-        return response()->json([
-          'error' => true,
-          'message' => $e->getMessageBag()
-        ]);
-      }
-
-      return redirect()->back()->withErrors($e->getMessageBag())->withInput();
+      return response()->json([
+        'error' => true,
+        'message' => $e->getMessageBag()
+      ]);
     }
   }
 
