@@ -20,5 +20,11 @@ class UserTableSeeder extends Seeder
         'role_id' => factory(\App\Entities\Role::class)->create(['type' => 'Admin'])->id
       ]
     );
+    factory(\App\Entities\Role::class)->create([
+      'type' => 'Encargado'
+    ]);
+    factory(\App\Entities\Role::class)->create([
+      'type' => 'Lector'
+    ]);
   }
 }
